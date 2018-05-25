@@ -1,0 +1,312 @@
+-- @path deployMM=/PSMLearningEcosystems/model/pSMLearningEcosystems.ecore
+-- @path ecoMM=/LearningEcosystems/model/learningEcosystems.ecore
+
+module eco2deploy;
+create OUT : deployMM from IN : ecoMM;
+
+-- -------------------------------------------
+-- Software tools
+-- -------------------------------------------		
+
+rule eco2eco {
+	from eco: ecoMM!Ecosystem
+	to
+	ecodep: deployMM!Ecosystem (
+		title <- eco.title,
+		components <- eco.components.union(eco.informationflow),
+		communication <- eco.communicationmechanism
+	)
+}
+
+rule repository2tool {
+	from repo: ecoMM!DataRepository
+	to
+	tool: deployMM!DSpace (
+		name <- repo.name,
+		supportedAPI <- repo.supportedService,
+		consumedService <- repo.consumedService,
+		file <- repo.definedProperty,
+		usedFile <- repo.usedProperty,
+		softwareComponent <- repo.softwareComponent,
+		softwareContainer <- repo.softwareContainer
+	)
+}
+
+rule mailserver2tool {
+	from mail: ecoMM!MailServer(mail.softwareContainer.oclIsUndefined())
+	to
+	tool: deployMM!Hakara (
+		name <- mail.name,
+		supportedAPI <- mail.supportedService,
+		consumedService <- mail.consumedService,
+		file <- mail.definedProperty,
+		usedFile <- mail.usedProperty,
+		softwareComponent <- mail.softwareComponent,
+		softwareContainer <- mail.softwareContainer
+	)
+}
+
+rule monitorization2tool {
+	from moni: ecoMM!Monitorization(moni.softwareContainer.oclIsUndefined())
+	to
+	tool: deployMM!Prometheus (
+		name <- moni.name,
+		supportedAPI <- moni.supportedService,
+		consumedService <- moni.consumedService,
+		file <- moni.definedProperty,
+		usedFile <- moni.usedProperty,
+		softwareComponent <- moni.softwareComponent,
+		softwareContainer <- moni.softwareContainer
+	)
+}
+
+rule usermngmt2tool {
+	from usr: ecoMM!UserManagement(usr.softwareContainer.oclIsUndefined())
+	to
+	tool: deployMM!CASoverLDAP (
+		name <- usr.name,
+		supportedAPI <- usr.supportedService,
+		consumedService <- usr.consumedService,
+		file <- usr.definedProperty,
+		usedFile <- usr.usedProperty,
+		softwareComponent <- usr.softwareComponent,
+		softwareContainer <- usr.softwareContainer
+	)
+}
+
+rule indexing2tool {
+	from search: ecoMM!IndexingService(search.softwareContainer.oclIsUndefined())
+	to
+	tool: deployMM!ApacheSolr (
+		name <- search.name,
+		supportedAPI <- search.supportedService,
+		consumedService <- search.consumedService,
+		file <- search.definedProperty,
+		usedFile <- search.usedProperty,
+		softwareComponent <- search.softwareComponent,
+		softwareContainer <- search.softwareContainer
+	)
+}
+
+rule internal2moodle {
+	from internal: ecoMM!InternalTool(internal.softwareContainer.oclIsUndefined() and internal.teaching = true)
+	to
+	tool: deployMM!Moodle (
+		name <- internal.name,
+		supportedAPI <- internal.supportedService,
+		consumedService <- internal.consumedService,
+		file <- internal.definedProperty,
+		usedFile <- internal.usedProperty,
+		softwareComponent <- internal.softwareComponent,
+		softwareContainer <- internal.softwareContainer
+	)
+}
+
+rule internal2limesurvey {
+	from internal: ecoMM!InternalTool(internal.softwareContainer.oclIsUndefined() 
+		and internal.teaching = false 
+		and internal.questionnaires = true 
+		and internal.complexContentTypes = false)
+	to
+	tool: deployMM!LimeSurvey (
+		name <- internal.name,
+		supportedAPI <- internal.supportedService,
+		consumedService <- internal.consumedService,
+		file <- internal.definedProperty,
+		usedFile <- internal.usedProperty,
+		softwareComponent <- internal.softwareComponent,
+		softwareContainer <- internal.softwareContainer
+	)
+}
+
+rule internal2wordpress {
+	from internal: ecoMM!InternalTool(internal.softwareContainer.oclIsUndefined() 
+		and internal.teaching = false 
+		and internal.questionnaires = false 
+		and internal.complexContentTypes = false)
+	to
+	tool: deployMM!WordPress (
+		name <- internal.name,
+		supportedAPI <- internal.supportedService,
+		consumedService <- internal.consumedService,
+		file <- internal.definedProperty,
+		usedFile <- internal.usedProperty,
+		softwareComponent <- internal.softwareComponent,
+		softwareContainer <- internal.softwareContainer
+	)
+}
+
+rule internal2drupal {
+	from internal: ecoMM!InternalTool(internal.softwareContainer.oclIsUndefined() 
+		and internal.teaching = false 
+		and internal.complexContentTypes = true)
+	to
+	tool: deployMM!Drupal (
+		name <- internal.name,
+		supportedAPI <- internal.supportedService,
+		consumedService <- internal.consumedService,
+		file <- internal.definedProperty,
+		usedFile <- internal.usedProperty,
+		softwareComponent <- internal.softwareComponent,
+		softwareContainer <- internal.softwareContainer
+	)
+}
+
+rule tool2component {
+	from tool: ecoMM!SoftwareTool(not tool.softwareContainer.oclIsUndefined() 
+		and not tool.oclIsTypeOf(ecoMM!DataRepository)
+		and not tool.oclIsTypeOf(ecoMM!ExternalTool))
+	to
+	plugin: deployMM!Plugin (
+		name <- tool.name,
+		supportedAPI <- tool.supportedService,
+		consumedService <- tool.consumedService,
+		file <- tool.definedProperty,
+		usedFile <- tool.usedProperty,
+		softwareComponent <- tool.softwareComponent,
+		softwareContainer <- tool.softwareContainer
+	)
+}
+
+rule external2facebook {
+	from external: ecoMM!ExternalTool(external.link.toLower().startsWith('http://www.facebook.com') or 
+		external.link.toLower().startsWith('https://www.facebook.com') or external.link.toLower().startsWith('http://facebook.com') 
+		or external.link.toLower().startsWith('https://facebook.com'))
+	to
+	tool: deployMM!Facebook (
+		name <- external.name,
+		link <- external.link,
+		identificator <- external.id.first(),
+		secretKey <- external.key.first(),
+		supportedAPI <- external.supportedService,
+		consumedService <- external.consumedService,
+		file <- external.definedProperty,
+		usedFile <- external.usedProperty
+	)
+}
+
+rule external2twitter {
+	from external: ecoMM!ExternalTool(external.link.toLower().startsWith('http://www.twitter.com') or 
+		external.link.toLower().startsWith('https://www.twitter.com') or external.link.toLower().startsWith('http://twitter.com') 
+		or external.link.toLower().startsWith('https://twitter.com'))
+	to
+	tool: deployMM!Twitter (
+		name <- external.name,
+		link <- external.link,
+		apiKey <- external.id.first(),
+		apiSecret <- external.key.first(),
+		token <- external.id.last(),
+		tokenSecret <- external.key.last(),
+		supportedAPI <- external.supportedService,
+		consumedService <- external.consumedService,
+		file <- external.definedProperty,
+		usedFile <- external.usedProperty
+	)
+}
+
+-- -------------------------------------------
+-- People
+-- -------------------------------------------		
+
+rule user2manager {
+	from usr: ecoMM!User(usr.type = #Manager)
+	to
+	tool: deployMM!Manager (
+		name <- usr.name
+	)
+}
+
+rule getuser {
+	from usr: ecoMM!User(usr.type = #ComputerEngineer)
+	to
+	tool: deployMM!ITManager (
+		name <- usr.name,
+		establishedMethodology <- usr.establishedMethodology,
+		performedManagement <- usr.performedManagement
+	)
+}
+
+rule management2tool {
+	from mngmt: ecoMM!Management
+	to
+	doc: deployMM!ManagementPlan (
+		name <- mngmt.name,
+		objectives <- mngmt.definedObjective->collect(c | c.description),
+		people <- mngmt.user,
+		methodology <- mngmt.definedObjective->collect(a | a.appliedMethodology)->flatten()
+	)
+}
+
+rule methodology2tool {
+	from metho: ecoMM!Methodology
+	to
+	doc: deployMM!MethodologyDocument (
+		name <- metho.name,
+		people <- metho.user
+	)
+}
+
+-- -------------------------------------------
+-- Information Flows
+-- -------------------------------------------		
+
+rule flow2dependency {
+	from flow: ecoMM!InformationFlow
+	to
+	dependency: deployMM!Dependency (
+		name <- flow.title,
+		sourceTool <- flow.source.name,
+		destinationTool <- flow.destination.name,
+		automatic <- flow.implementation->notEmpty()
+	)
+}
+
+rule property2file {
+	from pro: ecoMM!Property
+	to
+	file: deployMM!File (
+		name <- pro.name,
+		fileProvider <- pro.configProvider,
+		fileConsumer <- pro.configConsumer
+	)
+}
+
+rule service2rest {
+	from service: ecoMM!Service
+	to
+	rest: deployMM!RESTfulAPI (
+		name <- service.name,
+		description <- service.realizedDescription,
+		providerAPI <- service.provider,
+		RESTClient <- service.consumer 
+	)
+}
+
+rule description2restservice {
+	from service: ecoMM!ServiceDescription
+	to
+	rest: deployMM!RESTService (
+		endPoint <- service.endPoint,
+		description <- service.description,
+		interface <- service.interface
+	)
+}
+
+rule interface2restinterface {
+	from service: ecoMM!ServiceInterface
+	to
+	rest: deployMM!RESTInterface (
+		name <- service.name,
+		operation <- service.supportedOperation
+	)
+}
+
+rule operation2restoperation {
+	from service: ecoMM!ServiceOperation
+	to
+	rest: deployMM!RESTOperation (
+		name <- service.name,
+		isNotification <- service.isNotification,
+		isListener <- service.isListener
+	)
+}

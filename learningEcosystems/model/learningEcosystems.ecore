@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="learningEcosystems" nsURI="http://grial.eu/learningEcosystems"
+    nsPrefix="learningEcosystems">
+  <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+    <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+  </eAnnotations>
+  <eClassifiers xsi:type="ecore:EClass" name="Ecosystem">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="requieredComponents"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="requieredComponents" value="&#xA;&#x9;&#x9;self.components -> select(c | c.oclIsTypeOf(MailServer)) -> size() = 1 and self.components -> select(&#xA;&#x9;&#x9;&#x9;&#x9;c | c.oclIsTypeOf(Monitorization)&#xA;&#x9;&#x9;&#x9;) -> notEmpty() and self.components -> select(&#xA;&#x9;&#x9;&#x9;&#x9;c | c.oclIsTypeOf(UserManagement)&#xA;&#x9;&#x9;&#x9;) -> size() = 1 and self.components -> select(&#xA;&#x9;&#x9;&#x9;&#x9;c | c.oclIsTypeOf(InternalTool)&#xA;&#x9;&#x9;&#x9;) -> notEmpty() and self.components -> select(&#xA;&#x9;&#x9;&#x9;&#x9;c | c.oclIsTypeOf(Management)&#xA;&#x9;&#x9;&#x9;) -> notEmpty() and self.components -> select(&#xA;&#x9;&#x9;&#x9;&#x9;c | c.oclIsTypeOf(Methodology)&#xA;&#x9;&#x9;&#x9;) -> notEmpty() and self.components -> select(&#xA;&#x9;&#x9;&#x9;&#x9;c | c.oclIsTypeOf(User)) -> notEmpty()"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="informationflow" ordered="false"
+        upperBound="-1" eType="#//InformationFlow" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="communicationmechanism"
+        ordered="false" upperBound="-1" eType="#//CommunicationMechanism" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="components" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Component" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="People" abstract="true" eSuperTypes="#//Component"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Component" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Management" eSuperTypes="#//People">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="user" ordered="false" lowerBound="1"
+        upperBound="-1" eType="#//User" eOpposite="#//User/performedManagement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="definedObjective" ordered="false"
+        upperBound="-1" eType="#//Objective" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="User" eSuperTypes="#//People">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="performedManagement" lowerBound="1"
+        eType="#//Management" eOpposite="#//Management/user"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="establishedMethodology"
+        ordered="false" upperBound="-1" eType="#//Methodology" eOpposite="#//Methodology/user"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="#//userType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Methodology" eSuperTypes="#//People">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="user" ordered="false" lowerBound="1"
+        upperBound="-1" eType="#//User" eOpposite="#//User/establishedMethodology"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="objectives" upperBound="-1"
+        eType="#//Objective" eOpposite="#//Objective/appliedMethodology"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Objective">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" defaultValueLiteral=""/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="appliedMethodology" ordered="false"
+        upperBound="-1" eType="#//Methodology" eOpposite="#//Methodology/objectives"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="informationflow" ordered="false"
+        upperBound="-1" eType="#//InformationFlow" eOpposite="#//InformationFlow/baseObjectives"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InformationFlow">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="baseObjectives" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Objective" eOpposite="#//Objective/informationflow"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"
+        eType="#//SoftwareTool" eOpposite="#//SoftwareTool/reverse"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="destination" lowerBound="1"
+        eType="#//SoftwareTool" eOpposite="#//SoftwareTool/forward"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="implementation" ordered="false"
+        upperBound="-1" eType="#//CommunicationMechanism" eOpposite="#//CommunicationMechanism/informationFlow"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Service" eSuperTypes="#//CommunicationMechanism">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="realizedDescription" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//ServiceDescription" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="provider" upperBound="-1"
+        eType="#//SoftwareTool" eOpposite="#//SoftwareTool/supportedService"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="consumer" ordered="false"
+        upperBound="-1" eType="#//SoftwareTool" eOpposite="#//SoftwareTool/consumedService"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ServiceOperation">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isNotification" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isListener" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ServiceInterface">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="supportedOperation" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//ServiceOperation" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ServiceDescription">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="endpointUnique"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="endpointUnique" value="&#xA;&#x9;&#x9;&#x9;ServiceDescription.allInstances() -> forAll (p1,p2 |  p1 &lt;> p2 implies p1.endPoint &lt;> p2.endPoint)"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="endPoint" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="interface" lowerBound="1"
+        eType="#//ServiceInterface" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Property" eSuperTypes="#//CommunicationMechanism">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="configProvider" lowerBound="1"
+        eType="#//SoftwareTool" eOpposite="#//SoftwareTool/definedProperty"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="configConsumer" ordered="false"
+        upperBound="-1" eType="#//SoftwareTool" eOpposite="#//SoftwareTool/usedProperty"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SoftwareTool" abstract="true" eSuperTypes="#//Component">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="differentService differentConfig ownContainer servicewithInformationFlow propertywithInformationFlow"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="differentService" value="&#xA;&#x9;&#x9;&#x9;self.consumedService -> forAll(k | k.provider -> forAll(j | j &lt;> self))"/>
+      <details key="differentConfig" value="&#xA;&#x9;&#x9;&#x9;self.usedProperty -> forAll(k | k.configProvider &lt;> self)"/>
+      <details key="ownContainer" value="&#xA;&#x9;&#x9;&#x9;self.softwareComponent -> forAll(k | k &lt;> self)"/>
+      <details key="servicewithInformationFlow" value="&#xA;&#x9;&#x9;&#x9;self.consumedService -> isEmpty() or self.consumedService -> forAll(&#xA;&#x9;&#x9;&#x9;&#x9;k | k.informationFlow -> exists(&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;j | j.source = self and k.provider -> exists(&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;m | m = j.destination&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;)&#xA;&#x9;&#x9;&#x9;&#x9;)&#xA;&#x9;&#x9;&#x9;)"/>
+      <details key="propertywithInformationFlow" value="&#xA;&#x9;&#x9;&#x9;self.usedProperty -> isEmpty() or self.usedProperty -> forAll(&#xA;&#x9;&#x9;&#x9;&#x9;k | k.informationFlow -> exists(&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;j | j.source = self and j.destination = k.configProvider&#xA;&#x9;&#x9;&#x9;&#x9;)&#xA;&#x9;&#x9;&#x9;)"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="softwareContainer" eType="#//SoftwareTool"
+        eOpposite="#//SoftwareTool/softwareComponent"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="supportedService" ordered="false"
+        upperBound="-1" eType="#//Service" eOpposite="#//Service/provider"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="consumedService" ordered="false"
+        upperBound="-1" eType="#//Service" eOpposite="#//Service/consumer"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="definedProperty" ordered="false"
+        upperBound="-1" eType="#//Property" eOpposite="#//Property/configProvider"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="usedProperty" ordered="false"
+        upperBound="-1" eType="#//Property" eOpposite="#//Property/configConsumer"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="softwareComponent" ordered="false"
+        upperBound="-1" eType="#//SoftwareTool" eOpposite="#//SoftwareTool/softwareContainer"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reverse" ordered="false"
+        upperBound="-1" eType="#//InformationFlow" eOpposite="#//InformationFlow/source"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="forward" ordered="false"
+        upperBound="-1" eType="#//InformationFlow" eOpposite="#//InformationFlow/destination"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DataRepository" eSuperTypes="#//SoftwareTool">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="independentExternalTool1"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="independentExternalTool1" value="&#xA;&#x9;&#x9;&#x9;self.softwareComponent -> forAll(k | not k.oclIsTypeOf(ExternalTool))"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Tool" abstract="true" eSuperTypes="#//SoftwareTool"/>
+  <eClassifiers xsi:type="ecore:EClass" name="InternalTool" eSuperTypes="#//Tool">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="independentRepo_ExternalTool2"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="independentRepo_ExternalTool2" value="&#xA;&#x9;&#x9;&#x9;self.softwareComponent -> forAll(k | not k.oclIsTypeOf(DataRepository)) and self.softwareComponent -> forAll(k | not k.oclIsTypeOf(ExternalTool))"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="complexContentTypes" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="questionnaires" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="teaching" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExternalTool" eSuperTypes="#//Tool">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="independentExternalTool2"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="independentExternalTool2" value="&#xA;&#x9;&#x9;&#x9;self.softwareComponent -> forAll(k | not k.oclIsKindOf(Infrastructure)) and &#xA;&#x9;&#x9;&#x9;self.softwareComponent -> forAll(k | not k.oclIsTypeOf(DataRepository)) and&#xA;&#x9;&#x9;&#x9;self.softwareComponent -> forAll(k | not k.oclIsTypeOf(InternalTool))"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="link" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" ordered="false" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" ordered="false" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Infrastructure" abstract="true" eSuperTypes="#//SoftwareTool">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="independentRepo_ExternalTool1"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="independentRepo_ExternalTool1" value="&#xA;&#x9;&#x9;&#x9;self.softwareComponent -> forAll(k | not k.oclIsTypeOf(DataRepository)) and self.softwareComponent -> forAll(k | not k.oclIsTypeOf(ExternalTool))"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MailServer" eSuperTypes="#//Infrastructure">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="propertyRequired"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="propertyRequired" value="&#xA;&#x9;&#x9;&#x9;self.definedProperty -> notEmpty()"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Monitorization" eSuperTypes="#//Infrastructure"/>
+  <eClassifiers xsi:type="ecore:EClass" name="UserManagement" eSuperTypes="#//Infrastructure"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OtherSystemTool" eSuperTypes="#//Infrastructure"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CommunicationMechanism" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="informationFlow" ordered="false"
+        upperBound="-1" eType="#//InformationFlow" eOpposite="#//InformationFlow/implementation"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IndexingService" eSuperTypes="#//Infrastructure"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="userType">
+    <eLiterals name="Manager"/>
+    <eLiterals name="ComputerEngineer" value="1"/>
+  </eClassifiers>
+</ecore:EPackage>

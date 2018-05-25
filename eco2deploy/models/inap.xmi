@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<psmLearningEcosystems:Ecosystem xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:psmLearningEcosystems="http://grial.eu/psmLearningEcosystems" title="INAPEcosystem">
+  <communication xsi:type="psmLearningEcosystems:RESTfulAPI" name="LoginService" providerAPI="CAS-INAP" RESTClient="Documental-Repository Web-portal Social-Network BCI Course-Repository Internal-Management-Tool">
+    <description endPoint="/cas/login" description="Service to provide unique login">
+      <interface name="caslogin">
+        <operation name="login"/>
+      </interface>
+    </description>
+  </communication>
+  <communication xsi:type="psmLearningEcosystems:File" name="smtp-configuration" fileProvider="Institutional-Mail-Server" fileConsumer="Documental-Repository CAS-INAP Web-portal Social-Network BCI Course-Repository Course-Repository-Monitorization"/>
+  <components xsi:type="psmLearningEcosystems:Manager" name="Head" performedManagement="Strategic-Plan"/>
+  <components xsi:type="psmLearningEcosystems:ITManager" name="C.García" establishedMethodology="Sofware-Requirements" performedManagement="Strategic-Plan"/>
+  <components xsi:type="psmLearningEcosystems:ManagementPlan" name="Strategic-Plan" people="C.García Head" methodology="Sofware-Requirements">
+    <objectives>Ensure a set of security measures to managing the user's information</objectives>
+    <objectives>Share Training</objectives>
+  </components>
+  <components xsi:type="psmLearningEcosystems:MethodologyDocument" name="Sofware-Requirements" people="C.García"/>
+  <components xsi:type="psmLearningEcosystems:Drupal" name="Web-portal" consumedService="LoginService" usedFile="smtp-configuration"/>
+  <components xsi:type="psmLearningEcosystems:Drupal" name="Social-Network" consumedService="LoginService" usedFile="smtp-configuration" softwareComponent="Social-Network-Monitorization"/>
+  <components xsi:type="psmLearningEcosystems:Plugin" name="Social-Network-Monitorization" softwareContainer="Social-Network"/>
+  <components xsi:type="psmLearningEcosystems:Drupal" name="BCI" consumedService="LoginService" usedFile="smtp-configuration" softwareComponent="BCI-Monitorization"/>
+  <components xsi:type="psmLearningEcosystems:Plugin" name="BCI-Monitorization" softwareContainer="BCI"/>
+  <components xsi:type="psmLearningEcosystems:Drupal" name="Course-Repository" consumedService="LoginService" usedFile="smtp-configuration" softwareComponent="Course-Repository-Monitorization"/>
+  <components xsi:type="psmLearningEcosystems:Plugin" name="Course-Repository-Monitorization" softwareContainer="Course-Repository" usedFile="smtp-configuration"/>
+  <components xsi:type="psmLearningEcosystems:Drupal" name="Internal-Management-Tool" consumedService="LoginService"/>
+  <components xsi:type="psmLearningEcosystems:CASoverLDAP" name="CAS-INAP" supportedAPI="LoginService" usedFile="smtp-configuration"/>
+  <components xsi:type="psmLearningEcosystems:ApacheSolr" name="INAP-Search-service"/>
+  <components xsi:type="psmLearningEcosystems:DSpace" name="Documental-Repository" consumedService="LoginService" usedFile="smtp-configuration"/>
+  <components xsi:type="psmLearningEcosystems:Hakara" name="Institutional-Mail-Server" file="smtp-configuration"/>
+  <components xsi:type="psmLearningEcosystems:Dependency" name="Login-Web-portal" sourceTool="Web-portal" destinationTool="CAS-INAP" automatic="true"/>
+  <components xsi:type="psmLearningEcosystems:Dependency" name="Login-Social-Network" sourceTool="Social-Network" destinationTool="CAS-INAP" automatic="true"/>
+  <components xsi:type="psmLearningEcosystems:Dependency" name="Login-BCI" sourceTool="BCI" destinationTool="CAS-INAP" automatic="true"/>
+  <components xsi:type="psmLearningEcosystems:Dependency" name="Login-Course-Repository" sourceTool="Course-Repository" destinationTool="CAS-INAP" automatic="true"/>
+  <components xsi:type="psmLearningEcosystems:Dependency" name="Login-Management-Tool" sourceTool="Internal-Management-Tool" destinationTool="CAS-INAP" automatic="true"/>
+  <components xsi:type="psmLearningEcosystems:Dependency" name="Login-Data-Repository" sourceTool="Documental-Repository" destinationTool="CAS-INAP" automatic="true"/>
+  <components xsi:type="psmLearningEcosystems:Dependency" name="Mail-Web-portal" sourceTool="Web-portal" destinationTool="Institutional-Mail-Server" automatic="true"/>
+  <components xsi:type="psmLearningEcosystems:Dependency" name="Mail-Social-Network" sourceTool="Social-Network" destinationTool="Institutional-Mail-Server" automatic="true"/>
+  <components xsi:type="psmLearningEcosystems:Dependency" name="Mail-BCI" sourceTool="BCI" destinationTool="Institutional-Mail-Server" automatic="true"/>
+  <components xsi:type="psmLearningEcosystems:Dependency" name="Mail-Course-Repository" sourceTool="Course-Repository" destinationTool="Institutional-Mail-Server" automatic="true"/>
+  <components xsi:type="psmLearningEcosystems:Dependency" name="Mail-CAS" sourceTool="CAS-INAP" destinationTool="Institutional-Mail-Server" automatic="true"/>
+  <components xsi:type="psmLearningEcosystems:Dependency" name="Mail-Data-Repository" sourceTool="Documental-Repository" destinationTool="Institutional-Mail-Server" automatic="true"/>
+</psmLearningEcosystems:Ecosystem>

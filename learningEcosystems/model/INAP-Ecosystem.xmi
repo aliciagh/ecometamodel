@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<learningEcosystems:Ecosystem
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:learningEcosystems="http://grial.eu/learningEcosystems"
+    xsi:schemaLocation="http://grial.eu/learningEcosystems learningEcosystems.ecore"
+    title="INAPEcosystem">
+  <informationflow
+      baseObjectives="//@components.2/@definedObjective.0"
+      source="Web-portal"
+      destination="CAS-INAP"
+      implementation="LoginService"
+      title="Login-Web-portal"/>
+  <informationflow
+      baseObjectives="//@components.2/@definedObjective.0"
+      source="Social-Network"
+      destination="CAS-INAP"
+      implementation="LoginService"
+      title="Login-Social-Network"/>
+  <informationflow
+      baseObjectives="//@components.2/@definedObjective.0"
+      source="BCI"
+      destination="CAS-INAP"
+      implementation="LoginService"
+      title="Login-BCI"/>
+  <informationflow
+      baseObjectives="//@components.2/@definedObjective.0"
+      source="Course-Repository"
+      destination="CAS-INAP"
+      implementation="LoginService"
+      title="Login-Course-Repository"/>
+  <informationflow
+      baseObjectives="//@components.2/@definedObjective.0"
+      source="Internal-Management-Tool"
+      destination="CAS-INAP"
+      implementation="LoginService"
+      title="Login-Management-Tool"/>
+  <informationflow
+      baseObjectives="//@components.2/@definedObjective.0"
+      source="Documental-Repository"
+      destination="CAS-INAP"
+      implementation="LoginService"
+      title="Login-Data-Repository"/>
+  <informationflow
+      source="Web-portal"
+      destination="Institutional-Mail-Server"
+      implementation="smtp-configuration"
+      title="Mail-Web-portal"/>
+  <informationflow
+      source="Social-Network"
+      destination="Institutional-Mail-Server"
+      implementation="smtp-configuration"
+      title="Mail-Social-Network"/>
+  <informationflow
+      source="BCI"
+      destination="Institutional-Mail-Server"
+      implementation="smtp-configuration"
+      title="Mail-BCI"/>
+  <informationflow
+      source="Course-Repository"
+      destination="Institutional-Mail-Server"
+      implementation="smtp-configuration"
+      title="Mail-Course-Repository"/>
+  <informationflow
+      source="CAS-INAP"
+      destination="Institutional-Mail-Server"
+      implementation="smtp-configuration"
+      title="Mail-CAS"/>
+  <informationflow
+      source="Documental-Repository"
+      destination="Institutional-Mail-Server"
+      implementation="smtp-configuration"
+      title="Mail-Data-Repository"/>
+  <communicationmechanism
+      xsi:type="learningEcosystems:Service"
+      informationFlow="Login-Social-Network Login-Web-portal Login-BCI Login-Course-Repository Login-Management-Tool Login-Data-Repository"
+      name="LoginService"
+      provider="CAS-INAP"
+      consumer="Social-Network Web-portal BCI Course-Repository Documental-Repository Internal-Management-Tool">
+    <realizedDescription
+        endPoint="/cas/login"
+        description="Service to provide unique login">
+      <interface
+          name="caslogin">
+        <supportedOperation
+            name="login"/>
+      </interface>
+    </realizedDescription>
+  </communicationmechanism>
+  <communicationmechanism
+      xsi:type="learningEcosystems:Property"
+      informationFlow="Mail-Web-portal Mail-BCI Mail-Social-Network Mail-Course-Repository Mail-CAS Mail-Data-Repository"
+      name="smtp-configuration"
+      configProvider="Institutional-Mail-Server"
+      configConsumer="CAS-INAP Documental-Repository Social-Network Web-portal BCI Course-Repository Course-Repository-Monitorization"/>
+  <components
+      xsi:type="learningEcosystems:User"
+      name="Head"
+      performedManagement="Strategic-Plan"/>
+  <components
+      xsi:type="learningEcosystems:User"
+      name="C.García"
+      performedManagement="Strategic-Plan"
+      establishedMethodology="Sofware-Requirements"
+      type="ComputerEngineer"/>
+  <components
+      xsi:type="learningEcosystems:Management"
+      name="Strategic-Plan"
+      user="C.García Head">
+    <definedObjective
+        description="Ensure a set of security measures to managing the user's information"
+        appliedMethodology="Sofware-Requirements"
+        informationflow="Login-Social-Network Login-Course-Repository Login-BCI Login-Web-portal Login-Management-Tool Login-Data-Repository"/>
+    <definedObjective
+        description="Share Training"
+        appliedMethodology="Sofware-Requirements"/>
+  </components>
+  <components
+      xsi:type="learningEcosystems:Methodology"
+      name="Sofware-Requirements"
+      user="C.García"
+      objectives="//@components.2/@definedObjective.0 //@components.2/@definedObjective.1"/>
+  <components
+      xsi:type="learningEcosystems:InternalTool"
+      name="Web-portal"
+      consumedService="LoginService"
+      usedProperty="smtp-configuration"
+      reverse="Mail-Web-portal Login-Web-portal"
+      complexContentTypes="true"/>
+  <components
+      xsi:type="learningEcosystems:InternalTool"
+      name="Social-Network"
+      consumedService="LoginService"
+      usedProperty="smtp-configuration"
+      softwareComponent="Social-Network-Monitorization"
+      reverse="Login-Social-Network Mail-Social-Network"
+      complexContentTypes="true"/>
+  <components
+      xsi:type="learningEcosystems:Monitorization"
+      name="Social-Network-Monitorization"
+      softwareContainer="Social-Network"/>
+  <components
+      xsi:type="learningEcosystems:InternalTool"
+      name="BCI"
+      consumedService="LoginService"
+      usedProperty="smtp-configuration"
+      softwareComponent="BCI-Monitorization"
+      reverse="Mail-BCI Login-BCI"
+      complexContentTypes="true"/>
+  <components
+      xsi:type="learningEcosystems:Monitorization"
+      name="BCI-Monitorization"
+      softwareContainer="BCI"/>
+  <components
+      xsi:type="learningEcosystems:InternalTool"
+      name="Course-Repository"
+      consumedService="LoginService"
+      usedProperty="smtp-configuration"
+      softwareComponent="Course-Repository-Monitorization"
+      reverse="Mail-Course-Repository Login-Course-Repository"
+      complexContentTypes="true"/>
+  <components
+      xsi:type="learningEcosystems:Monitorization"
+      name="Course-Repository-Monitorization"
+      softwareContainer="Course-Repository"
+      usedProperty="smtp-configuration"/>
+  <components
+      xsi:type="learningEcosystems:InternalTool"
+      name="Internal-Management-Tool"
+      consumedService="LoginService"
+      reverse="Login-Management-Tool"
+      complexContentTypes="true"/>
+  <components
+      xsi:type="learningEcosystems:UserManagement"
+      name="CAS-INAP"
+      supportedService="LoginService"
+      usedProperty="smtp-configuration"
+      reverse="Mail-CAS"
+      forward="Login-Social-Network Login-Web-portal Login-BCI Login-Course-Repository Login-Management-Tool Login-Data-Repository"/>
+  <components
+      xsi:type="learningEcosystems:IndexingService"
+      name="INAP-Search-service"/>
+  <components
+      xsi:type="learningEcosystems:DataRepository"
+      name="Documental-Repository"
+      consumedService="LoginService"
+      usedProperty="smtp-configuration"
+      reverse="Mail-Data-Repository Login-Data-Repository"/>
+  <components
+      xsi:type="learningEcosystems:MailServer"
+      name="Institutional-Mail-Server"
+      definedProperty="smtp-configuration"
+      forward="Mail-Social-Network Mail-Web-portal Mail-BCI Mail-Course-Repository Mail-CAS Mail-Data-Repository"/>
+</learningEcosystems:Ecosystem>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/learningEcosystems/src-gen" creationIcons="false"
+    editDirectory="/learningEcosystems.edit/src-gen" editorDirectory="/learningEcosystems.editor/src-gen"
+    modelPluginID="learningEcosystems" modelName="LearningEcosystems" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    codeFormatting="true" importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0"
+    copyrightFields="false" usedGenPackages="#//learningEcosystems" operationReflection="true"
+    importOrganizing="true">
+  <foreignModel>learningEcosystems.ecore</foreignModel>
+  <testsDirectory xsi:nil="true"/>
+  <genPackages prefix="LearningEcosystems" resource="XMI" disposableProviderFactory="true"
+      ecorePackage="learningEcosystems.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="learningEcosystems.ecore#//userType">
+      <genEnumLiterals ecoreEnumLiteral="learningEcosystems.ecore#//userType/Manager"/>
+      <genEnumLiterals ecoreEnumLiteral="learningEcosystems.ecore#//userType/ComputerEngineer"/>
+    </genEnums>
+    <genClasses ecoreClass="learningEcosystems.ecore#//Ecosystem">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningEcosystems.ecore#//Ecosystem/title"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference learningEcosystems.ecore#//Ecosystem/informationflow"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference learningEcosystems.ecore#//Ecosystem/communicationmechanism"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference learningEcosystems.ecore#//Ecosystem/components"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="learningEcosystems.ecore#//People"/>
+    <genClasses ecoreClass="learningEcosystems.ecore#//Component">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningEcosystems.ecore#//Component/name"/>
+    </genClasses>
+    <genClasses ecoreClass="learningEcosystems.ecore#//Management">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningEcosystems.ecore#//Management/user"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference learningEcosystems.ecore#//Management/definedObjective"/>
+    </genClasses>
+    <genClasses ecoreClass="learningEcosystems.ecore#//User">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningEcosystems.ecore#//User/performedManagement"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningEcosystems.ecore#//User/establishedMethodology"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningEcosystems.ecore#//User/type"/>
+    </genClasses>
+    <genClasses ecoreClass="learningEcosystems.ecore#//Methodology">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningEcosystems.ecore#//Methodology/user"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningEcosystems.ecore#//Methodology/objectives"/>
+    </genClasses>
+    <genClasses ecoreClass="learningEcosystems.ecore#//Objective">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningEcosystems.ecore#//Objective/description"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningEcosystems.ecore#//Objective/appliedMethodology"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningEcosystems.ecore#//Objective/informationflow"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="learningEcosystems.ecore#//InformationFlow">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningEcosystems.ecore#//InformationFlow/baseObjectives"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningEcosystems.ecore#//InformationFlow/source"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningEcosystems.ecore#//InformationFlow/destination"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningEcosystems.ecore#//InformationFlow/implementation"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningEcosystems.ecore#//InformationFlow/title"/>
+    </genClasses>
+    <genClasses ecoreClass="learningEcosystems.ecore#//Service">
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference learningEcosystems.ecore#//Service/realizedDescription"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningEcosystems.ecore#//Service/provider"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningEcosystems.ecore#//Service/consumer"/>
+    </genClasses>
+    <genClasses ecoreClass="learningEcosystems.ecore#//ServiceOperation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningEcosystems.ecore#//ServiceOperation/isNotification"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningEcosystems.ecore#//ServiceOperation/isListener"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningEcosystems.ecore#//ServiceOperation/name"/>
+    </genClasses>
+    <genClasses ecoreClass="learningEcosystems.ecore#//ServiceInterface">
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference learningEcosystems.ecore#//ServiceInterface/supportedOperation"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningEcosystems.ecore#//ServiceInterface/name"/>
+    </genClasses>
+    <genClasses ecoreClass="learningEcosystems.ecore#//ServiceDescription">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningEcosystems.ecore#//ServiceDescription/endPoint"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningEcosystems.ecore#//ServiceDescription/description"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference learningEcosystems.ecore#//ServiceDescription/interface"/>
+    </genClasses>
+    <genClasses ecoreClass="learningEcosystems.ecore#//Property">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningEcosystems.ecore#//Property/configProvider"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningEcosystems.ecore#//Property/configConsumer"/>
+    </genClasses>
+    <genClasses ecoreClass="learningEcosystems.ecore#//SoftwareTool">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningEcosystems.ecore#//SoftwareTool/softwareContainer"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningEcosystems.ecore#//SoftwareTool/supportedService"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningEcosystems.ecore#//SoftwareTool/consumedService"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningEcosystems.ecore#//SoftwareTool/definedProperty"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningEcosystems.ecore#//SoftwareTool/usedProperty"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningEcosystems.ecore#//SoftwareTool/softwareComponent"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningEcosystems.ecore#//SoftwareTool/reverse"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningEcosystems.ecore#//SoftwareTool/forward"/>
+    </genClasses>
+    <genClasses ecoreClass="learningEcosystems.ecore#//DataRepository"/>
+    <genClasses ecoreClass="learningEcosystems.ecore#//Tool"/>
+    <genClasses ecoreClass="learningEcosystems.ecore#//InternalTool">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningEcosystems.ecore#//InternalTool/complexContentTypes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningEcosystems.ecore#//InternalTool/questionnaires"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningEcosystems.ecore#//InternalTool/teaching"/>
+    </genClasses>
+    <genClasses ecoreClass="learningEcosystems.ecore#//ExternalTool">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningEcosystems.ecore#//ExternalTool/link"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningEcosystems.ecore#//ExternalTool/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningEcosystems.ecore#//ExternalTool/key"/>
+    </genClasses>
+    <genClasses ecoreClass="learningEcosystems.ecore#//Infrastructure"/>
+    <genClasses ecoreClass="learningEcosystems.ecore#//MailServer"/>
+    <genClasses ecoreClass="learningEcosystems.ecore#//Monitorization"/>
+    <genClasses ecoreClass="learningEcosystems.ecore#//UserManagement"/>
+    <genClasses ecoreClass="learningEcosystems.ecore#//OtherSystemTool"/>
+    <genClasses ecoreClass="learningEcosystems.ecore#//CommunicationMechanism">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningEcosystems.ecore#//CommunicationMechanism/informationFlow"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningEcosystems.ecore#//CommunicationMechanism/name"/>
+    </genClasses>
+    <genClasses ecoreClass="learningEcosystems.ecore#//IndexingService"/>
+  </genPackages>
+</genmodel:GenModel>

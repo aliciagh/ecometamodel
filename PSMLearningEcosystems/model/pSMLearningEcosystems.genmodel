@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/PSMLearningEcosystems/src-gen" creationIcons="false"
+    editDirectory="/PSMLearningEcosystems.edit/src-gen" editorDirectory="/PSMLearningEcosystems.editor/src-gen"
+    modelPluginID="PSMLearningEcosystems" modelName="PSMLearningEcosystems" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    codeFormatting="true" importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0"
+    copyrightFields="false" operationReflection="true" importOrganizing="true">
+  <foreignModel>pSMLearningEcosystems.ecore</foreignModel>
+  <testsDirectory xsi:nil="true"/>
+  <genPackages prefix="PSMLearningEcosystems" disposableProviderFactory="true" ecorePackage="pSMLearningEcosystems.ecore#/">
+    <genClasses image="false" ecoreClass="pSMLearningEcosystems.ecore#//SoftwareTool">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference pSMLearningEcosystems.ecore#//SoftwareTool/softwareContainer"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference pSMLearningEcosystems.ecore#//SoftwareTool/supportedAPI"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference pSMLearningEcosystems.ecore#//SoftwareTool/consumedService"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference pSMLearningEcosystems.ecore#//SoftwareTool/file"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference pSMLearningEcosystems.ecore#//SoftwareTool/usedFile"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference pSMLearningEcosystems.ecore#//SoftwareTool/softwareComponent"/>
+    </genClasses>
+    <genClasses ecoreClass="pSMLearningEcosystems.ecore#//RESTfulAPI">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pSMLearningEcosystems.ecore#//RESTfulAPI/description"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference pSMLearningEcosystems.ecore#//RESTfulAPI/providerAPI"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference pSMLearningEcosystems.ecore#//RESTfulAPI/RESTClient"/>
+    </genClasses>
+    <genClasses ecoreClass="pSMLearningEcosystems.ecore#//RESTService">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pSMLearningEcosystems.ecore#//RESTService/endPoint"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pSMLearningEcosystems.ecore#//RESTService/description"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pSMLearningEcosystems.ecore#//RESTService/interface"/>
+    </genClasses>
+    <genClasses ecoreClass="pSMLearningEcosystems.ecore#//File">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference pSMLearningEcosystems.ecore#//File/fileProvider"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference pSMLearningEcosystems.ecore#//File/fileConsumer"/>
+    </genClasses>
+    <genClasses ecoreClass="pSMLearningEcosystems.ecore#//MethodologyDocument">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference pSMLearningEcosystems.ecore#//MethodologyDocument/people"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="pSMLearningEcosystems.ecore#//Tool"/>
+    <genClasses ecoreClass="pSMLearningEcosystems.ecore#//DSpace"/>
+    <genClasses image="false" ecoreClass="pSMLearningEcosystems.ecore#//People">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference pSMLearningEcosystems.ecore#//People/establishedMethodology"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference pSMLearningEcosystems.ecore#//People/performedManagement"/>
+    </genClasses>
+    <genClasses ecoreClass="pSMLearningEcosystems.ecore#//CASoverLDAP"/>
+    <genClasses ecoreClass="pSMLearningEcosystems.ecore#//Facebook">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pSMLearningEcosystems.ecore#//Facebook/link"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pSMLearningEcosystems.ecore#//Facebook/identificator"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pSMLearningEcosystems.ecore#//Facebook/secretKey"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="pSMLearningEcosystems.ecore#//RESTInterface">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pSMLearningEcosystems.ecore#//RESTInterface/operation"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pSMLearningEcosystems.ecore#//RESTInterface/name"/>
+    </genClasses>
+    <genClasses ecoreClass="pSMLearningEcosystems.ecore#//Hakara"/>
+    <genClasses ecoreClass="pSMLearningEcosystems.ecore#//Manager"/>
+    <genClasses image="false" ecoreClass="pSMLearningEcosystems.ecore#//Infrastructure"/>
+    <genClasses ecoreClass="pSMLearningEcosystems.ecore#//ManagementPlan">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference pSMLearningEcosystems.ecore#//ManagementPlan/people"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pSMLearningEcosystems.ecore#//ManagementPlan/objectives"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference pSMLearningEcosystems.ecore#//ManagementPlan/methodology"/>
+    </genClasses>
+    <genClasses ecoreClass="pSMLearningEcosystems.ecore#//ApacheSolr"/>
+    <genClasses ecoreClass="pSMLearningEcosystems.ecore#//Prometheus"/>
+    <genClasses ecoreClass="pSMLearningEcosystems.ecore#//Ecosystem">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pSMLearningEcosystems.ecore#//Ecosystem/title"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pSMLearningEcosystems.ecore#//Ecosystem/communication"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pSMLearningEcosystems.ecore#//Ecosystem/components"/>
+    </genClasses>
+    <genClasses ecoreClass="pSMLearningEcosystems.ecore#//RESTOperation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pSMLearningEcosystems.ecore#//RESTOperation/isNotification"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pSMLearningEcosystems.ecore#//RESTOperation/isListener"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pSMLearningEcosystems.ecore#//RESTOperation/name"/>
+    </genClasses>
+    <genClasses ecoreClass="pSMLearningEcosystems.ecore#//Drupal"/>
+    <genClasses image="false" ecoreClass="pSMLearningEcosystems.ecore#//CommunicationSolution">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pSMLearningEcosystems.ecore#//CommunicationSolution/name"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="pSMLearningEcosystems.ecore#//Component">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pSMLearningEcosystems.ecore#//Component/name"/>
+    </genClasses>
+    <genClasses ecoreClass="pSMLearningEcosystems.ecore#//ITManager"/>
+    <genClasses ecoreClass="pSMLearningEcosystems.ecore#//Document"/>
+    <genClasses ecoreClass="pSMLearningEcosystems.ecore#//WordPress"/>
+    <genClasses ecoreClass="pSMLearningEcosystems.ecore#//Twitter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pSMLearningEcosystems.ecore#//Twitter/link"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pSMLearningEcosystems.ecore#//Twitter/apiKey"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pSMLearningEcosystems.ecore#//Twitter/apiSecret"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pSMLearningEcosystems.ecore#//Twitter/token"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pSMLearningEcosystems.ecore#//Twitter/tokenSecret"/>
+    </genClasses>
+    <genClasses ecoreClass="pSMLearningEcosystems.ecore#//Moodle"/>
+    <genClasses ecoreClass="pSMLearningEcosystems.ecore#//LImeSurvey"/>
+    <genClasses ecoreClass="pSMLearningEcosystems.ecore#//Dependency">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pSMLearningEcosystems.ecore#//Dependency/sourceTool"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pSMLearningEcosystems.ecore#//Dependency/destinationTool"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pSMLearningEcosystems.ecore#//Dependency/automatic"/>
+    </genClasses>
+    <genClasses ecoreClass="pSMLearningEcosystems.ecore#//Plugin"/>
+  </genPackages>
+</genmodel:GenModel>
