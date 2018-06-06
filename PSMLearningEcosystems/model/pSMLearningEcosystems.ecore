@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="pSMLearningEcosystems" nsURI="http://grial.eu/psmLearningEcosystems"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="pSMLearningEcosystems" nsURI="https://raw.githubusercontent.com/aliciagh/ecometamodel/master/PSMLearningEcosystems/model/pSMLearningEcosystems.ecore"
     nsPrefix="psmLearningEcosystems">
+  <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+    <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+  </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="SoftwareTool" abstract="true" eSuperTypes="#//Component">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="softwareContainer" ordered="false"
-        eType="#//SoftwareTool" eOpposite="#//SoftwareTool/softwareComponent"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="differentService differentConfig ownContainer"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="differentService" value="&#xA;&#x9;&#x9;&#x9;self.consumedService -> forAll(k | k.providerAPI -> forAll(j | j &lt;> self))"/>
+      <details key="differentConfig" value="&#xA;&#x9;&#x9;&#x9;self.usedFile -> forAll(k | k.fileProvider &lt;> self)"/>
+      <details key="ownContainer" value="&#xA;&#x9;&#x9;&#x9;self.softwareComponent -> forAll(k | k &lt;> self)"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="softwareContainer" eType="#//SoftwareTool"
+        eOpposite="#//SoftwareTool/softwareComponent"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="supportedAPI" ordered="false"
         upperBound="-1" eType="#//RESTfulAPI" eOpposite="#//RESTfulAPI/providerAPI"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="consumedService" ordered="false"
@@ -25,6 +38,12 @@
         upperBound="-1" eType="#//SoftwareTool" eOpposite="#//SoftwareTool/consumedService"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RESTService">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="endpointUnique"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="endpointUnique" value="&#xA;&#x9;&#x9;&#x9;RESTService.allInstances() -> forAll (p1,p2 |  p1 &lt;> p2 implies p1.endPoint &lt;> p2.endPoint)"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="endPoint" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" iD="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -32,8 +51,8 @@
         eType="#//RESTInterface" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="File" eSuperTypes="#//CommunicationSolution">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="fileProvider" ordered="false"
-        lowerBound="1" eType="#//SoftwareTool" eOpposite="#//SoftwareTool/file"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fileProvider" lowerBound="1"
+        eType="#//SoftwareTool" eOpposite="#//SoftwareTool/file"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="fileConsumer" ordered="false"
         upperBound="-1" eType="#//SoftwareTool" eOpposite="#//SoftwareTool/usedFile"/>
   </eClassifiers>
@@ -51,17 +70,17 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CASoverLDAP" eSuperTypes="#//Infrastructure"/>
   <eClassifiers xsi:type="ecore:EClass" name="Facebook" eSuperTypes="#//Tool">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="link" ordered="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="identificator" ordered="false"
-        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="secretKey" ordered="false"
-        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="link" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="identificator" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="secretKey" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RESTInterface">
     <eStructuralFeatures xsi:type="ecore:EReference" name="operation" ordered="false"
         lowerBound="1" upperBound="-1" eType="#//RESTOperation" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" ordered="false" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Hakara" eSuperTypes="#//Infrastructure"/>
   <eClassifiers xsi:type="ecore:EClass" name="Manager" eSuperTypes="#//People"/>
@@ -89,42 +108,47 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="isListener" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" ordered="false" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Drupal" eSuperTypes="#//Tool"/>
   <eClassifiers xsi:type="ecore:EClass" name="CommunicationSolution" abstract="true">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" ordered="false" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Component" abstract="true">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" ordered="false" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ITManager" eSuperTypes="#//People"/>
   <eClassifiers xsi:type="ecore:EClass" name="Document" abstract="true" eSuperTypes="#//Component"/>
   <eClassifiers xsi:type="ecore:EClass" name="WordPress" eSuperTypes="#//Tool"/>
   <eClassifiers xsi:type="ecore:EClass" name="Twitter" eSuperTypes="#//Tool">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="link" ordered="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="apiKey" ordered="false"
-        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="apiSecret" ordered="false"
-        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="token" ordered="false"
-        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tokenSecret" ordered="false"
-        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="link" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="apiKey" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="apiSecret" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="token" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tokenSecret" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Moodle" eSuperTypes="#//Tool"/>
   <eClassifiers xsi:type="ecore:EClass" name="LImeSurvey" eSuperTypes="#//Tool"/>
   <eClassifiers xsi:type="ecore:EClass" name="Dependency" eSuperTypes="#//Document">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceTool" ordered="false"
-        unique="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="destinationTool" ordered="false"
-        unique="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="automatic" ordered="false"
-        unique="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
-        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceTool" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="destinationTool" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="automatic" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Plugin" eSuperTypes="#//Tool"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Plugin" eSuperTypes="#//Tool">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="pluginNotContentOthers"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="pluginNotContentOthers" value="&#xA;&#x9;&#x9;&#x9;self.softwareComponent -> isEmpty() and &#xA;&#x9;&#x9;&#x9;self.softwareContainer -> notEmpty()"/>
+    </eAnnotations>
+  </eClassifiers>
 </ecore:EPackage>

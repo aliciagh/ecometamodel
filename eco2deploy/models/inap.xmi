@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<psmLearningEcosystems:Ecosystem xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:psmLearningEcosystems="http://grial.eu/psmLearningEcosystems" title="INAPEcosystem">
+<?xml version="1.0" encoding="UTF-8"?>
+<psmLearningEcosystems:Ecosystem xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:psmLearningEcosystems="https://raw.githubusercontent.com/aliciagh/ecometamodel/master/PSMLearningEcosystems/model/pSMLearningEcosystems.ecore" title="INAPEcosystem">
   <communication xsi:type="psmLearningEcosystems:RESTfulAPI" name="LoginService" providerAPI="CAS-INAP" RESTClient="Documental-Repository Web-portal Social-Network BCI Course-Repository Internal-Management-Tool">
     <description endPoint="/cas/login" description="Service to provide unique login">
       <interface name="caslogin">
@@ -9,12 +9,12 @@
   </communication>
   <communication xsi:type="psmLearningEcosystems:File" name="smtp-configuration" fileProvider="Institutional-Mail-Server" fileConsumer="Documental-Repository CAS-INAP Web-portal Social-Network BCI Course-Repository Course-Repository-Monitorization"/>
   <components xsi:type="psmLearningEcosystems:Manager" name="Head" performedManagement="Strategic-Plan"/>
-  <components xsi:type="psmLearningEcosystems:ITManager" name="C.García" establishedMethodology="Sofware-Requirements" performedManagement="Strategic-Plan"/>
-  <components xsi:type="psmLearningEcosystems:ManagementPlan" name="Strategic-Plan" people="C.García Head" methodology="Sofware-Requirements">
+  <components xsi:type="psmLearningEcosystems:ITManager" name="C.GarcÃ­a" establishedMethodology="Sofware-Requirements" performedManagement="Strategic-Plan"/>
+  <components xsi:type="psmLearningEcosystems:ManagementPlan" name="Strategic-Plan" people="C.GarcÃ­a Head" methodology="Sofware-Requirements">
     <objectives>Ensure a set of security measures to managing the user's information</objectives>
     <objectives>Share Training</objectives>
   </components>
-  <components xsi:type="psmLearningEcosystems:MethodologyDocument" name="Sofware-Requirements" people="C.García"/>
+  <components xsi:type="psmLearningEcosystems:MethodologyDocument" name="Sofware-Requirements" people="C.GarcÃ­a"/>
   <components xsi:type="psmLearningEcosystems:Drupal" name="Web-portal" consumedService="LoginService" usedFile="smtp-configuration"/>
   <components xsi:type="psmLearningEcosystems:Drupal" name="Social-Network" consumedService="LoginService" usedFile="smtp-configuration" softwareComponent="Social-Network-Monitorization"/>
   <components xsi:type="psmLearningEcosystems:Plugin" name="Social-Network-Monitorization" softwareContainer="Social-Network"/>
